@@ -21,7 +21,6 @@ const exerciseSchema = new mongoose.Schema(
 		owner: {
 			type: mongoose.Schema.Types.ObjectId,
 			ref: 'User',
-			required: true,
 		},
 	},
 	{
@@ -30,5 +29,9 @@ const exerciseSchema = new mongoose.Schema(
 		toJSON: { virtuals: true }
 	}
 )
+
+exerciseSchema.virtual('diffLevel').get(function () {
+	return `${this.name} is typically for ${this.type}`
+})
 
 module.exports = mongoose.model('Exercise', exerciseSchema)
